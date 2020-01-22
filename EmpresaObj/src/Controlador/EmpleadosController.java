@@ -7,7 +7,7 @@ package Controlador;
 
 import Modelo.Departamentos;
 import Modelo.Empleados;
-import Modelo.Presupuesto;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -23,15 +23,22 @@ public class EmpleadosController {
     private static final String TABLE_NAME = "empleados";
     	
     private static EntityManager em = DepartamentoController.getEmf().createEntityManager();
-    public static List<Empleados> getAll(){
-        List<Empleados> list = new ArrayList<Empleados>();
-       
-	    
-       
-            Query q1 = em.createQuery("select * from Empleados ", Empleados.class);
-           // d = new Departamentos();
-       
-        return list;
+    public static void Lista(){
+     Query q1 = em.createQuery("select numemp from Empleados ", Empleados.class);
+     Query q2 = em.createQuery("select nombre from Empleados ", Empleados.class);
+     Query q3 = em.createQuery("select trabajo from Empleados ", Empleados.class);
+     Query q4 = em.createQuery("select fechacontrato from Empleados ", Empleados.class);
+     Query q5 = em.createQuery("select salario from Empleados ", Empleados.class);
+     Query q6 = em.createQuery("select comision from Empleados ", Empleados.class);
+     Query q7 = em.createQuery("select numdept from Empleados ", Empleados.class);
+     System.out.println("Numero Empleado:"+q1.getResultList());
+     System.out.println("Nombre:"+q2.getResultList());
+     System.out.println("Trabajo:"+q3.getResultList());
+     System.out.println("Fecha del contrato:"+q4.getResultList());
+     System.out.println("Salario:"+q5.getResultList());
+     System.out.println("Comision:"+q6.getResultList());
+     System.out.println("Numero del departamento:"+q7.getResultList());
+        
     }
     
   
@@ -56,15 +63,15 @@ public class EmpleadosController {
                 
 		
                 Departamentos e= null;
-                Presupuesto p=null;
+              
 		
 		em.getTransaction().begin();
 		Empleados D = new Empleados(d.getNumemp(),d.getNombre(),d.getFechacontrato());
                 e = new Departamentos(ed.getNumdept());
-                d.setTrabajo(d.getTrabajo());
-                d.setSalario(d.getSalario());
-                d.setComision(d.getComision());
-                d.setNumdept(e);
+                D.setTrabajo(d.getTrabajo());
+                D.setSalario(d.getSalario());
+                D.setComision(d.getComision());
+                D.setNumdept(e);
 		
                 em.persist(D);
 		em.getTransaction().commit();
@@ -74,17 +81,28 @@ public class EmpleadosController {
 
     }
     
-     public static void almacenarModificado(Empleados d){
+     public static void almacenarModificado(Empleados d, Departamentos ed){
         	
          
-         
-         Query q1 = em.createQuery("update Empleados set Nombre = " +d.getNombre()+ ", set fechacontrato = " +d.getFechacontrato()+ "where Num_dept = "+d.getNumemp(), Empleados.class);
-         d = new Empleados();
-         
+         Empleados D = new Empleados();
+                D = em.find(Empleados.class, d.getNumemp());
+                em.getTransaction().begin();
+                D.setNombre(d.getNombre());
+                D.setFechacontrato(d.getFechacontrato());
+                D.setTrabajo(d.getTrabajo());
+                D.setSalario(d.getSalario());
+                D.setComision(d.getComision());
+                D.setNumdept(ed);
+                
+                em.getTransaction().commit();
     }
      
      public static void eliminar(Empleados d){
-
+         Empleados D = new Empleados();
+         D = em.find(Empleados.class, d.getNumdept());
+         em.getTransaction().begin();
+         em.remove(D);
+         em.getTransaction().commit();
         
 
     }

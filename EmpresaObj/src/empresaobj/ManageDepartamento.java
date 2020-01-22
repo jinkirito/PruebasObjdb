@@ -8,6 +8,7 @@ package empresaobj;
 import Controlador.DepartamentoController;
 import Modelo.Departamentos;
 import java.util.List;
+import javax.persistence.Query;
 import other.Utils;
 
 /**
@@ -55,15 +56,14 @@ public class ManageDepartamento {
     }
     
      protected static void listado(boolean pausafinal){
-        List<Departamentos> list = DepartamentoController.getAll();
         System.out.println("\n\tListado de Departamentos: \n");
-        for (Departamentos o : list) {
-            System.out.println("\t" + o.getNumdept() + " - " + o.getNombre() + ", "  + o.getLocalizacion());
-        }
+        DepartamentoController.Lista();
         if (pausafinal) {
-            System.out.println("\n\tPulse 'Intro' para continuar");
-            Utils.pausa();
+        System.out.println("\n\tPulse 'Intro' para continuar");
+        Utils.pausa();
         }
+        
+       
     }
      
          private static void alta(){
@@ -91,12 +91,21 @@ public class ManageDepartamento {
 
         
             System.out.print("\nIntroduzca 'Numero de Departamento' del Departamento ('Intro' para no modificar): ");
-            o.setNumdept(Utils.getShortConsola());
+            Short str = Utils.getShortConsola();
+            if (!str.equals("")) {
+                o.setNumdept(str);
+            }
             Utils.pausa();
             System.out.print("\nIntroduzca 'Nombre' del Departamento ('Intro' para no modificar): ");
-            o.setNombre(Utils.getStringConsola());
+             String str2 = Utils.getStringConsola();
+            if (!str2.equals("")) {
+                o.setNombre(str2);
+            }
             System.out.print("\nIntroduzca 'Localizacion' del Departamento ('Intro' para no modificar): ");
-            o.setLocalizacion(Utils.getStringConsola());
+             String str3 = Utils.getStringConsola();
+            if (!str3.equals("")) {
+                o.setLocalizacion(str3);
+            }
             
             DepartamentoController.almacenarModificado(o);
 
@@ -115,15 +124,7 @@ public class ManageDepartamento {
         System.out.println("\n\tEliminado correctamente!. Pulse 'Intro' para continuar");
                 Utils.pausa();
 
-      /*  if (o != null) {
-            System.out.print("\nRealmente desea eliminar el registro? (S/N): ");
-            String str = Utils.getStringConsola();
-            if (str.equalsIgnoreCase("S")) {
-                DepartamentoController.eliminar(o);
-                System.out.println("\n\tEliminado correctamente!. Pulse 'Intro' para continuar");
-                Utils.pausa();
-            }
-        }*/
+      
     } 
          
         

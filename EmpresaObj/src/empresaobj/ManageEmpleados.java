@@ -17,7 +17,8 @@ import other.Utils;
  * @author Antonio Jose Adamuz Sereno
  */
 public class ManageEmpleados {
-     public static void menuGestion() {
+
+    public static void menuGestion() {
 
         int opcionElegida = -1;
         do {
@@ -55,20 +56,17 @@ public class ManageEmpleados {
             }
         } while (opcionElegida != 0);
     }
-    
-     protected static void listado(boolean pausafinal){
-        List<Empleados> list = EmpleadosController.getAll();
+
+    protected static void listado(boolean pausafinal) {
         System.out.println("\n\tListado de Empleados: \n");
-        for (Empleados o : list) {
-            System.out.println("\t" + o.getNumdept() + " - " + o.getNombre() + ", "  + o.getFechacontrato());
-        }
+        EmpleadosController.Lista();
         if (pausafinal) {
             System.out.println("\n\tPulse 'Intro' para continuar");
             Utils.pausa();
         }
     }
-     
-         private static void alta() throws ParseException{
+
+    private static void alta() throws ParseException {
         System.out.println("\n\tAñadir de Empleado\n");
 
         Empleados o = new Empleados();
@@ -78,26 +76,33 @@ public class ManageEmpleados {
         Utils.pausa();
         System.out.print("\nIntroduzca 'Nombre' del Empleado: ");
         o.setNombre(Utils.getStringConsola());
+        Utils.pausa();
         System.out.print("\nIntroduzca 'Fecha del contrato' del Empleado: ");
         o.setFechacontrato(Utils.getStringConsola());
+        Utils.pausa();
         System.out.print("\nIntroduzca 'trabajo' del Empleado: ");
         o.setTrabajo(Utils.getStringConsola());
+        Utils.pausa();
         System.out.print("\nIntroduzca 'Salario' del Empleado: ");
         o.setSalario(Utils.getFloatConsola());
+        Utils.pausa();
         System.out.print("\nIntroduzca 'Comision' del Empleado: ");
         o.setComision(Utils.getFloatConsola());
+        Utils.pausa();
         System.out.print("\nIntroduzca 'Numero del departamento' del Empleado: ");
         e.setNumdept(Utils.getShortConsola());
-        EmpleadosController.almacenarNuevo(o,e); 
+        Utils.pausa();
+        EmpleadosController.almacenarNuevo(o, e);
 
         System.out.println("\n\tInsertado correctamente!. Pulse 'Intro' para continuar");
         Utils.pausa();
     }
-         
-         private static void modificacion() throws ParseException{
+
+    private static void modificacion() throws ParseException {
         System.out.println("\n\tModificacion de Departamento\n");
 
-        Empleados o = seleccionPorUsuario();
+        Empleados o = new Empleados();
+        Departamentos e = new Departamentos();
 
         if (o != null) {
             System.out.print("\nIntroduzca 'Numero de Empleados'  ('Intro' para no modificar): ");
@@ -107,54 +112,51 @@ public class ManageEmpleados {
             }
             System.out.print("\nIntroduzca 'Nombre' del Empleado ('Intro' para no modificar): ");
             String str2 = Utils.getStringConsola();
-            if (!str.equals("")) {
+            if (!str2.equals("")) {
                 o.setNombre(str2);
             }
+            System.out.print("\nIntroduzca 'Trabajo' del Empleado ('Intro' para no modificar): ");
+            String str3 = Utils.getStringConsola();
+            if (!str3.equals("")) {
+                o.setTrabajo(str3);
+            }
             System.out.print("\nIntroduzca 'Fecha contrato' del Empleado ('Intro' para no modificar): ");
-           
-            if (!str.equals("")) {
-                o.setFechacontrato(Utils.getStringConsola());
+            String str4 = Utils.getStringConsola();
+            if (!str4.equals("")) {
+                o.setFechacontrato(str4);
+            }
+            System.out.print("\nIntroduzca 'Salario' del Empleado ('Intro' para no modificar): ");
+            float str5 = Utils.getFloatConsola();
+            if (!str4.equals("")) {
+                o.setSalario(str5);
+            }
+            System.out.print("\nIntroduzca 'Comision' del Empleado ('Intro' para no modificar): ");
+            float str6 = Utils.getFloatConsola();
+            if (!str4.equals("")) {
+                o.setComision(str6);
+            }
+            System.out.print("\nIntroduzca 'Numero del Departamento'  ('Intro' para no modificar): ");
+            Short str7 = Utils.getShortConsola();
+            if (!str7.equals("")) {
+                e.setNumdept(str7);
+
             }
 
-            EmpleadosController.almacenarModificado(o);
+            EmpleadosController.almacenarModificado(o, e);
 
             System.out.println("\n\tModificado correctamente!. Pulse 'Intro' para continuar");
             Utils.pausa();
         }
     }
-         
-         
-         private static void baja(){
-        System.out.println("\n\tModificacion de Departamento\n");
 
-        Empleados o = seleccionPorUsuario();
+    private static void baja() {
+        System.out.println("\n\t Baja de Empleado\n");
+        Empleados o = new Empleados();
+        System.out.print("\nIntroduzca 'Empleado' del Departamento para eliminar ('Intro' para no Borrar): ");
+        o.setNumemp(Utils.getShortConsola());
+        EmpleadosController.eliminar(o);
+        System.out.println("\n\tEliminado correctamente!. Pulse 'Intro' para continuar");
+        Utils.pausa();
+    }
 
-        if (o != null) {
-            System.out.print("\nRealmente desea eliminar el registro? (S/N): ");
-            String str = Utils.getStringConsola();
-            if (str.equalsIgnoreCase("S")) {
-                EmpleadosController.eliminar(o);
-                System.out.println("\n\tEliminado correctamente!. Pulse 'Intro' para continuar");
-                Utils.pausa();
-            }
-        }
-    } 
-         
-       protected static Empleados seleccionPorUsuario(){
-        Empleados o = null;
-        short id = -2;
-        do {
-            System.out.println("\n\tNumero del Empleado ('-1' - ver listado, '0' - salir): ");
-            id = Utils.getShortConsola(-1);
-            if (id == -1) {
-                listado(false);
-            } else if (id != 0) {
-                o = EmpleadosController.get(id);
-                if (o == null) {
-                    System.out.println("\tError. Ha especificado un numero invalido.");
-                }
-            }
-        } while (o == null && id != 0);
-        return o;
-    }   
 }

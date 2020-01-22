@@ -25,7 +25,7 @@ public class EmpresaObj {
 
             System.out.println("\t1.- Gestion de Departamentos.");
             System.out.println("\t2.- Gestion de Empleados.");
-           // System.out.println("\t3.- Gestion de Presupuestos.");
+          
             System.out.println("\t0.- Salir");
             System.out.println("\n\tElija una opcion: ");
 
@@ -40,9 +40,6 @@ public class EmpresaObj {
                     break;
                 case 2:
                     ManageEmpleados.menuGestion();
-                    break;
-                case 3:
-                 //   ManagePresupuestos.menuGestion();
                     break;
             }
         } while (opcionElegida != 0);
