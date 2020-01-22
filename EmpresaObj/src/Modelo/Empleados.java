@@ -54,7 +54,7 @@ public class Empleados implements Serializable {
     @Basic(optional = false)
     @Column(name = "Fecha_contrato")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date fechacontrato;
+    private String fechacontrato;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "Salario")
     private Float salario;
@@ -76,7 +76,7 @@ public class Empleados implements Serializable {
         this.numemp = numemp;
     }
 
-    public Empleados(Short numemp, String nombre, Date fechacontrato) {
+    public Empleados(Short numemp, String nombre, String fechacontrato) {
         this.numemp = numemp;
         this.nombre = nombre;
         this.fechacontrato = fechacontrato;
@@ -106,11 +106,11 @@ public class Empleados implements Serializable {
         this.trabajo = trabajo;
     }
 
-    public Date getFechacontrato() {
+    public String getFechacontrato() {
         return fechacontrato;
     }
 
-    public void setFechacontrato(Date fechacontrato) {
+    public void setFechacontrato(String fechacontrato) {
         this.fechacontrato = fechacontrato;
     }
 

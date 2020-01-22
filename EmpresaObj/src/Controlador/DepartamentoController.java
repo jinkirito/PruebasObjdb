@@ -28,19 +28,13 @@ public class DepartamentoController{
        
 	    
        
-            Query q1 = em.createQuery("select * from Departamentos ", Departamentos.class);
+            Query q1 = getEm().createQuery("select * from Departamentos ", Departamentos.class);
            // d = new Departamentos();
        
         return list;
     }
     
-    public static void almacenar(Departamentos d) {
-        if (d.getNumdept() != null) { // Solo modificar
-            almacenarModificado(d);
-        } else { // Crear nuevo objeto en la BBDD
-            almacenarNuevo(d);
-        }
-    }
+  
     
     
     public static Departamentos get(short id){
@@ -49,7 +43,7 @@ public class DepartamentoController{
             		
 	   
        
-            Query q1 = em.createQuery("select * from Departamentos Num_dept = "+id, Departamentos.class);
+            Query q1 = getEm().createQuery("select * from Departamentos Num_dept = "+id, Departamentos.class);
             d = new Departamentos();
             d.setNumdept(id);
             
@@ -57,41 +51,60 @@ public class DepartamentoController{
        
     }
     
-    private static void almacenarNuevo(Departamentos d) {
+    public static void almacenarNuevo(Departamentos d) {
 
                 
 		
                 Empleados e= null;
                 Presupuesto p=null;
 		
-		em.getTransaction().begin();
-		Departamentos D = new Departamentos(d.getNumdept(), "hola");
-                //e = new Empleados(e.getNumemp(),e.getNombre(),e.getFechacontrato());
+		getEm().getTransaction().begin();
+		Departamentos D = new Departamentos(d.getNumdept(), d.getNombre());
+              //  e = new Empleados(e.getNumemp(),e.getNombre(),e.getFechacontrato());
                // p = new Presupuesto(p.getPresupuestoPK());
                 //d.setPresupuestoList((List<Presupuesto>) p);
-                //d.setEmpleadosList((List<Empleados>) e);
-		
-                em.persist(D);
-		em.getTransaction().commit();
+              //  d.setEmpleadosList((List<Empleados>) e);
+		D.setLocalizacion(d.getLocalizacion());
+                getEm().persist(D);
+		getEm().getTransaction().commit();
 		
 		
               
 
     }
     
-     private static void almacenarModificado(Departamentos d){
-        	
-         
-         
-         Query q1 = em.createQuery("update Departamentos set Nombre = "+d.getNombre()+"where Num_dept = "+d.getNumdept(), Departamentos.class);
-         d = new Departamentos();
+     public static void almacenarModificado(Departamentos d){
+        	Departamentos D = new Departamentos();
+                D = getEm().find(Departamentos.class, d.getNumdept());
+                getEm().getTransaction().begin();
+                D.setNombre(d.getNombre());
+                D.setLocalizacion(d.getLocalizacion());
+                getEm().getTransaction().commit();
          
     }
      
      public static void eliminar(Departamentos d){
-
+         Departamentos D = new Departamentos();
+         D = getEm().find(Departamentos.class, d.getNumdept());
+         getEm().getTransaction().begin();
+         getEm().remove(D);
+         getEm().getTransaction().commit();
         
 
+    }
+
+    /**
+     * @return the emf
+     */
+    public static EntityManagerFactory getEmf() {
+        return emf;
+    }
+
+    /**
+     * @return the em
+     */
+    public static EntityManager getEm() {
+        return em;
     }
     
     

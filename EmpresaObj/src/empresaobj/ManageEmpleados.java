@@ -6,6 +6,7 @@
 package empresaobj;
 
 import Controlador.EmpleadosController;
+import Modelo.Departamentos;
 import Modelo.Empleados;
 import java.text.ParseException;
 import java.util.List;
@@ -71,16 +72,23 @@ public class ManageEmpleados {
         System.out.println("\n\tAñadir de Empleado\n");
 
         Empleados o = new Empleados();
+        Departamentos e = new Departamentos();
         System.out.print("\nIntroduzca 'Numero de Empleado' del Empleado: ");
         o.setNumemp(Utils.getShortConsola());
         Utils.pausa();
         System.out.print("\nIntroduzca 'Nombre' del Empleado: ");
         o.setNombre(Utils.getStringConsola());
         System.out.print("\nIntroduzca 'Fecha del contrato' del Empleado: ");
-        
-        o.setFechacontrato(Utils.getDateConsola());
-
-        EmpleadosController.almacenar(o); 
+        o.setFechacontrato(Utils.getStringConsola());
+        System.out.print("\nIntroduzca 'trabajo' del Empleado: ");
+        o.setTrabajo(Utils.getStringConsola());
+        System.out.print("\nIntroduzca 'Salario' del Empleado: ");
+        o.setSalario(Utils.getFloatConsola());
+        System.out.print("\nIntroduzca 'Comision' del Empleado: ");
+        o.setComision(Utils.getFloatConsola());
+        System.out.print("\nIntroduzca 'Numero del departamento' del Empleado: ");
+        e.setNumdept(Utils.getShortConsola());
+        EmpleadosController.almacenarNuevo(o,e); 
 
         System.out.println("\n\tInsertado correctamente!. Pulse 'Intro' para continuar");
         Utils.pausa();
@@ -105,10 +113,10 @@ public class ManageEmpleados {
             System.out.print("\nIntroduzca 'Fecha contrato' del Empleado ('Intro' para no modificar): ");
            
             if (!str.equals("")) {
-                o.setFechacontrato(Utils.getDateConsola());
+                o.setFechacontrato(Utils.getStringConsola());
             }
 
-            EmpleadosController.almacenar(o);
+            EmpleadosController.almacenarModificado(o);
 
             System.out.println("\n\tModificado correctamente!. Pulse 'Intro' para continuar");
             Utils.pausa();

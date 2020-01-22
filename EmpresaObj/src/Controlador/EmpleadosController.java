@@ -21,8 +21,8 @@ import javax.persistence.Query;
  */
 public class EmpleadosController {
     private static final String TABLE_NAME = "empleados";
-    private static  EntityManagerFactory emf = Persistence.createEntityManagerFactory("$objectdb/db/empleados.odb");	
-    private static EntityManager em = emf.createEntityManager();
+    	
+    private static EntityManager em = DepartamentoController.getEmf().createEntityManager();
     public static List<Empleados> getAll(){
         List<Empleados> list = new ArrayList<Empleados>();
        
@@ -34,13 +34,7 @@ public class EmpleadosController {
         return list;
     }
     
-    public static void almacenar(Empleados d) {
-        if (d.getNumdept() != null) { // Solo modificar
-            almacenarModificado(d);
-        } else { // Crear nuevo objeto en la BBDD
-            almacenarNuevo(d);
-        }
-    }
+  
     
     
     public static Empleados get(short id){
@@ -57,7 +51,7 @@ public class EmpleadosController {
        
     }
     
-    private static void almacenarNuevo(Empleados d) {
+    public static void almacenarNuevo(Empleados d, Departamentos ed) {
 
                 
 		
@@ -66,8 +60,10 @@ public class EmpleadosController {
 		
 		em.getTransaction().begin();
 		Empleados D = new Empleados(d.getNumemp(),d.getNombre(),d.getFechacontrato());
-                e = new Departamentos(e.getNumdept());
-               
+                e = new Departamentos(ed.getNumdept());
+                d.setTrabajo(d.getTrabajo());
+                d.setSalario(d.getSalario());
+                d.setComision(d.getComision());
                 d.setNumdept(e);
 		
                 em.persist(D);
@@ -78,7 +74,7 @@ public class EmpleadosController {
 
     }
     
-     private static void almacenarModificado(Empleados d){
+     public static void almacenarModificado(Empleados d){
         	
          
          
