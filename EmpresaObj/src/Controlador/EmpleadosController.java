@@ -84,6 +84,7 @@ public class EmpleadosController {
 		
                 em.persist(D);
 		em.getTransaction().commit();
+                em.close();
 		
 		
               
@@ -104,15 +105,16 @@ public class EmpleadosController {
                 D.setNumdept(ed);
                 
                 em.getTransaction().commit();
+                em.close();
     }
      
      public static void eliminar(Empleados d){
          Empleados D = new Empleados();
-         D = em.find(Empleados.class, d.getNumdept());
+         D = em.find(Empleados.class, d.getNumemp());
          em.getTransaction().begin();
          em.remove(D);
          em.getTransaction().commit();
-        
+         em.close();
 
     }
 }

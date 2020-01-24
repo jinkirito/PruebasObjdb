@@ -13,7 +13,7 @@ import other.Utils;
 
 /**
  *
- * @author usuario
+ * @author Antonio Jose Adamuz Sereno
  */
 public class ManageDepartamento {
     public static void menuGestion() {

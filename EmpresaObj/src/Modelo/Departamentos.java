@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author usuario
+ * @author Antonio Jose Adamuz Sereno
  */
 @Entity
 @Table(name = "departamentos")
@@ -48,8 +48,7 @@ public class Departamentos implements Serializable {
     private String nombre;
     @Column(name = "Localizacion")
     private String localizacion;
-    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "departamentos", fetch = FetchType.LAZY)
-    //private List<Presupuesto> presupuestoList;
+    
     @OneToMany(mappedBy = "numdept", fetch = FetchType.LAZY)
     private List<Empleados> empleadosList;
 
@@ -93,14 +92,7 @@ public class Departamentos implements Serializable {
         this.localizacion = localizacion;
     }
 
-   // @XmlTransient
-  //  public List<Presupuesto> getPresupuestoList() {
-  //      return presupuestoList;
-  //  }
-
-  //  public void setPresupuestoList(List<Presupuesto> presupuestoList) {
-  //      this.presupuestoList = presupuestoList;
-  //  }
+   
 
     @XmlTransient
     public List<Empleados> getEmpleadosList() {

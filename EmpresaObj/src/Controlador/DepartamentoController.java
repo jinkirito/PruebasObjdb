@@ -57,7 +57,7 @@ public class DepartamentoController{
 		D.setLocalizacion(d.getLocalizacion());
                 getEm().persist(D);
 		getEm().getTransaction().commit();
-
+                em.close();
     }
     
      public static void almacenarModificado(Departamentos d){
@@ -67,6 +67,7 @@ public class DepartamentoController{
                 D.setNombre(d.getNombre());
                 D.setLocalizacion(d.getLocalizacion());
                 getEm().getTransaction().commit();
+                em.close();
          
     }
      
@@ -76,6 +77,7 @@ public class DepartamentoController{
          getEm().getTransaction().begin();
          getEm().remove(D);
          getEm().getTransaction().commit();
+         em.close();
         
 
     }

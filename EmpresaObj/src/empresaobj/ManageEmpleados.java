@@ -131,12 +131,12 @@ public class ManageEmpleados {
             }
             System.out.print("\nIntroduzca 'Salario' del Empleado ('Intro' para no modificar): ");
             float str5 = Utils.getFloatConsola();
-            if (!str4.equals("")) {
+            if (str5 != 0) {
                 o.setSalario(str5);
             }
             System.out.print("\nIntroduzca 'Comision' del Empleado ('Intro' para no modificar): ");
             float str6 = Utils.getFloatConsola();
-            if (!str4.equals("")) {
+            if (str6 != 0) {
                 o.setComision(str6);
             }
             System.out.print("\nIntroduzca 'Numero del Departamento'  ('Intro' para no modificar): ");

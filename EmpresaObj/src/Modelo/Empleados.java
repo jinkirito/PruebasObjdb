@@ -55,7 +55,7 @@ public class Empleados implements Serializable {
     @Column(name = "Fecha_contrato")
     @Temporal(TemporalType.TIMESTAMP)
     private String fechacontrato;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+   
     @Column(name = "Salario")
     private Float salario;
     @Column(name = "Comision")

@@ -84,7 +84,9 @@ public class Utils {
 	}
         
         public static Short getShortConsola(){
+           
             return getScanner().nextShort();
+            
         }
 
 	
