@@ -29,7 +29,7 @@ public class EmpresaObj {
             System.out.println("\t0.- Salir");
             System.out.println("\n\tElija una opcion: ");
 
-            opcionElegida = Utils.getIntConsola(0, 5);
+            opcionElegida = Utils.getIntConsola(0, 2);
 
             switch (opcionElegida) {
                 case 0:

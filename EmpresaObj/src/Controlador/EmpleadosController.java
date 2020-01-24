@@ -44,17 +44,26 @@ public class EmpleadosController {
   
     
     
-    public static Empleados get(short id){
+    public static void Buscar(short id){
        
-        Empleados d = null;
-            		
-	   
-       
-            Query q1 = em.createQuery("select * from Empleados numemp = "+id, Empleados.class);
-            d = new Empleados();
-            d.setNumemp(id);
+            	  
+     Query q1 = em.createQuery("select nombre from Empleados where numemp = "+id, Empleados.class);
+     Query q2 = em.createQuery("select trabajo from Empleados where numemp = "+id, Empleados.class);
+     Query q3 = em.createQuery("select fechacontrato from Empleados where numemp = "+id, Empleados.class);
+     Query q4 = em.createQuery("select salario from Empleados where numemp = "+id, Empleados.class);
+     Query q5 = em.createQuery("select comision from Empleados where numemp = "+id, Empleados.class);
+     Query q6 = em.createQuery("select numdept from Empleados  numemp = "+id, Empleados.class);
+     
+     System.out.println("Nombre:"+q1.getSingleResult());
+     System.out.println("Trabajo:"+q2.getResultList());
+     System.out.println("Fecha del contrato:"+q3.getResultList());
+     System.out.println("Salario:"+q4.getResultList());
+     System.out.println("Comision:"+q5.getResultList());
+     System.out.println("Numero del departamento:"+q6.getResultList());
             
-        return d;
+         
+            
+        
        
     }
     

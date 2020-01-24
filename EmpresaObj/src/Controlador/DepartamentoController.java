@@ -36,37 +36,27 @@ public class DepartamentoController{
   
     
     
-    public static Departamentos get(short id){
+    public static void Buscar(short id){
        
-        Departamentos d = null;
-            		
-	   
-       
-            Query q1 = getEm().createQuery("select * from Departamentos numdept = "+id, Departamentos.class);
-            d = new Departamentos();
-            d.setNumdept(id);
-            
-       return d;
+     Query q1 = em.createQuery("select nombre from Departamentos where numdept = "+id, Departamentos.class);
+     Query q2 = em.createQuery("select localizacion from Departamentos where numdept = "+id, Departamentos.class);
+     Query q3 = em.createQuery("select empleadosList from Departamentos where numdept = "+id, Departamentos.class);
+     
+     
+     System.out.println("Nombre:"+q1.getSingleResult());
+     System.out.println("Localizacion:"+q2.getResultList());
+     System.out.println("Lista de Empleados:"+q3.getResultList());
+    
        
     }
     
     public static void almacenarNuevo(Departamentos d) {
 
-                
-		
-                Empleados e= null;
-            
-		
 		getEm().getTransaction().begin();
 		Departamentos D = new Departamentos(d.getNumdept(), d.getNombre());
-              //  e = new Empleados(e.getNumemp(),e.getNombre(),e.getFechacontrato());
-              //  d.setEmpleadosList((List<Empleados>) e);
 		D.setLocalizacion(d.getLocalizacion());
                 getEm().persist(D);
 		getEm().getTransaction().commit();
-		
-		
-              
 
     }
     

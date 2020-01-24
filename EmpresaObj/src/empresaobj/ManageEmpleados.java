@@ -29,10 +29,11 @@ public class ManageEmpleados {
                 System.out.println("\t2.- Añadir de Empleados.");
                 System.out.println("\t3.- Modificacion de Empleados.");
                 System.out.println("\t4.- Eliminar de Empleados.");
+                System.out.println("\t5.- Buascar Empleados.");
                 System.out.println("\t0.- Salir");
                 System.out.println("\n\tElija una opcion: ");
 
-                opcionElegida = Utils.getIntConsola(0, 4);
+                opcionElegida = Utils.getIntConsola(0, 5);
 
                 switch (opcionElegida) {
                     case 0:
@@ -48,6 +49,9 @@ public class ManageEmpleados {
                         break;
                     case 4:
                         baja();
+                        break;
+                    case 5:
+                        Buscar(true);
                         break;
                 }
             } catch (Exception e) {
@@ -76,22 +80,22 @@ public class ManageEmpleados {
         Utils.pausa();
         System.out.print("\nIntroduzca 'Nombre' del Empleado: ");
         o.setNombre(Utils.getStringConsola());
-        Utils.pausa();
+        
         System.out.print("\nIntroduzca 'Fecha del contrato' del Empleado: ");
         o.setFechacontrato(Utils.getStringConsola());
-        Utils.pausa();
+        
         System.out.print("\nIntroduzca 'trabajo' del Empleado: ");
         o.setTrabajo(Utils.getStringConsola());
-        Utils.pausa();
+        
         System.out.print("\nIntroduzca 'Salario' del Empleado: ");
         o.setSalario(Utils.getFloatConsola());
-        Utils.pausa();
+        
         System.out.print("\nIntroduzca 'Comision' del Empleado: ");
         o.setComision(Utils.getFloatConsola());
-        Utils.pausa();
+        
         System.out.print("\nIntroduzca 'Numero del departamento' del Empleado: ");
         e.setNumdept(Utils.getShortConsola());
-        Utils.pausa();
+        
         EmpleadosController.almacenarNuevo(o, e);
 
         System.out.println("\n\tInsertado correctamente!. Pulse 'Intro' para continuar");
@@ -157,6 +161,18 @@ public class ManageEmpleados {
         EmpleadosController.eliminar(o);
         System.out.println("\n\tEliminado correctamente!. Pulse 'Intro' para continuar");
         Utils.pausa();
+    }
+    
+    private static void Buscar( boolean pausafinal){
+        System.out.println("\n\t Busqueda de Empleado\n");
+        Short a= null;
+        System.out.print("\nIntroduzca 'numero del Empleado' para buscar  ");
+        a=Utils.getShortConsola();
+        EmpleadosController.Buscar(a);
+       if (pausafinal) {
+            System.out.println("\n\tPulse 'Intro' para continuar");
+            Utils.pausa();
+        }
     }
 
 }

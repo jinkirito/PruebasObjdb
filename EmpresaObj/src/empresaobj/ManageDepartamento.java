@@ -27,10 +27,11 @@ public class ManageDepartamento {
                 System.out.println("\t2.- Añadir de Departamentos.");
                 System.out.println("\t3.- Modificacion de Departamentos.");
                 System.out.println("\t4.- Eliminar de Departamentos.");
+                System.out.println("\t5.- Buscar Departamentos.");
                 System.out.println("\t0.- Salir");
                 System.out.println("\n\tElija una opcion: ");
 
-                opcionElegida = Utils.getIntConsola(0, 4);
+                opcionElegida = Utils.getIntConsola(0, 5);
 
                 switch (opcionElegida) {
                     case 0:
@@ -46,6 +47,9 @@ public class ManageDepartamento {
                         break;
                     case 4:
                         baja();
+                        break;
+                    case 5:
+                        Buscar(true);
                         break;
                 }
             } catch (Exception e) {
@@ -127,5 +131,17 @@ public class ManageDepartamento {
       
     } 
          
+         private static void Buscar( boolean pausafinal){
+        System.out.println("\n\t Busqueda de Departamento\n");
+        Short a= null;
+        System.out.print("\nIntroduzca 'Numero del Departamento' para buscar  ");
+        a=Utils.getShortConsola();
+        DepartamentoController.Buscar(a);
+       if (pausafinal) {
+            System.out.println("\n\tPulse 'Intro' para continuar");
+            Utils.pausa();
+        }
+       Utils.pausa();
+    }
         
 }
